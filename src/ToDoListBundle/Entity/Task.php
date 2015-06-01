@@ -45,12 +45,10 @@ class Task
      */
     private $taskslist;
 
-
-
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Task
      */
     public function setName($name)
@@ -63,7 +61,7 @@ class Task
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -73,7 +71,7 @@ class Task
     /**
      * Set status
      *
-     * @param integer $status
+     * @param  integer $status
      * @return Task
      */
     public function setStatus($status)
@@ -86,7 +84,7 @@ class Task
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
@@ -96,7 +94,7 @@ class Task
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -106,7 +104,7 @@ class Task
     /**
      * Set taskslist
      *
-     * @param \ToDoListBundle\Entity\Taskslist $taskslist
+     * @param  \ToDoListBundle\Entity\Taskslist $taskslist
      * @return Task
      */
     public function setTaskslist(\ToDoListBundle\Entity\Taskslist $taskslist = null)
@@ -119,7 +117,7 @@ class Task
     /**
      * Get taskslist
      *
-     * @return \ToDoListBundle\Entity\Taskslist 
+     * @return \ToDoListBundle\Entity\Taskslist
      */
     public function getTaskslist()
     {

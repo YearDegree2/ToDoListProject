@@ -35,12 +35,10 @@ class Taskslist
      */
     private $id;
 
-
-
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string    $name
      * @return Taskslist
      */
     public function setName($name)
@@ -53,7 +51,7 @@ class Taskslist
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -63,7 +61,7 @@ class Taskslist
     /**
      * Set deadline
      *
-     * @param \DateTime $deadline
+     * @param  \DateTime $deadline
      * @return Taskslist
      */
     public function setDeadline($deadline)
@@ -76,7 +74,7 @@ class Taskslist
     /**
      * Get deadline
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeadline()
     {
@@ -86,7 +84,7 @@ class Taskslist
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
