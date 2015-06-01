@@ -3,6 +3,7 @@
 namespace ToDoListBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class TaskController extends Controller implements TaskInterface
 {
@@ -10,7 +11,8 @@ class TaskController extends Controller implements TaskInterface
     {
         $repository = $this->getDoctrine()->getRepository('ToDoListBundle:Task');
         $tasks = $repository->findByTaskslist($idList);
+        $content = $this->get('templating')->render('ToDoListBundle:Task:index.html.twig', ['tasks' => $tasks, 'idList' => $idList]);
 
-        return $this->render('ToDoListBundle:Task:index.html.twig', array('tasks' => $tasks, 'idList' => $idList));
+        return new Response($content);
     }
 }

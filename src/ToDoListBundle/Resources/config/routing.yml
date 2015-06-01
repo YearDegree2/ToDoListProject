@@ -6,6 +6,10 @@ todolist_taskslist:
     path:     /taskslist
     defaults: { _controller: ToDoListBundle:TasksList:getTasksList }
 
+todolist_new_tasklist:
+    pattern:  /taskslist/new
+    defaults: { _controller: ToDoListBundle:TasksList:newTaskList }
+
 todolist_tasks:
     pattern:  /taskslist/{idList}
     defaults: { _controller: ToDoListBundle:Task:getTasks }
