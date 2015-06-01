@@ -2,6 +2,12 @@ todolist_homepage:
     path:     /
     defaults: { _controller: ToDoListBundle:TasksList:index }
 
-todolist_taskslist_list:
+todolist_taskslist:
     path:     /taskslist
     defaults: { _controller: ToDoListBundle:TasksList:getTasksList }
+
+todolist_tasks:
+    pattern:  /taskslist/{idList}
+    defaults: { _controller: ToDoListBundle:Task:getTasks }
+    requirements:
+        idList: \d+
