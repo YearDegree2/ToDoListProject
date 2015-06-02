@@ -24,7 +24,7 @@ class TasksListController extends Controller implements TasksListInterface
         return new Response($content);
     }
 
-    public function newTaskListAction(Request $request)
+    public function addTaskListAction(Request $request)
     {
         $taskList = new Taskslist();
         $form = $this->createForm(new TasksListType(), $taskList);

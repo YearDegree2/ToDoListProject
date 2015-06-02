@@ -1,6 +1,12 @@
-<h1>TaskLists</h1>
+<h1>Liste des tâches</h1>
 <ul>
     {% for tasklist in taskslist %}
-        <li>{{ tasklist.id }} : {{ tasklist.name }}</li>
+        <li>
+            {{ tasklist.id }} : {{ tasklist.name }}
+            <a href="{{ path("todolist_update_tasklist", { "idList" : tasklist.id}) }}">Modifier</a>
+            <a href="{{ path("todolist_tasks", { "idList" : tasklist.id}) }}">Lister toutes les tâches</a>
+            <a href="{{ path("todolist_delete_tasklist", { "idList" : tasklist.id}) }}">Supprimer</a>
+        </li>
     {% endfor %}
+    <a href="{{ path("todolist_new_tasklist") }}">Nouvelle liste</a>
 </ul>

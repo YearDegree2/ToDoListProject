@@ -1,6 +1,7 @@
-<h1>Tasks for Taskslist {{ idList }}</h1>
+<h1>Tâches de la liste {{ idList }}</h1>
 <ul>
     {% for task in tasks %}
         <li>{{ task.name }}</li>
     {% endfor %}
+    <a href="{{ path("todolist_taskslist") }}">Retourner à la liste des tâches</a>
 </ul>

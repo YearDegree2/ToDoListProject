@@ -7,8 +7,8 @@ todolist_taskslist:
     defaults: { _controller: ToDoListBundle:TasksList:getTasksList }
 
 todolist_new_tasklist:
-    pattern:  /taskslist/new
-    defaults: { _controller: ToDoListBundle:TasksList:newTaskList }
+    pattern:  /taskslist/add
+    defaults: { _controller: ToDoListBundle:TasksList:addTaskList }
 
 todolist_update_tasklist:
     pattern: /taskslist/update/{idList}
