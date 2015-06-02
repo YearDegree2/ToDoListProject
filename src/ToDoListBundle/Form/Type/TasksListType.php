@@ -17,13 +17,13 @@ class TasksListType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-            $resolver->setDefaults(array(
-                    'data_class' => 'ToDoListBundle\Entity\TasksList'
-                    ));
-        }
+        $resolver->setDefaults(array(
+            'data_class' => 'ToDoListBundle\Entity\TasksList'
+        ));
+    }
 
     public function getName()
     {
-            return 'tasksList';
+        return 'tasksList';
     }
 }

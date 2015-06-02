@@ -12,7 +12,7 @@ class TasksListController extends Controller implements TasksListInterface
 {
     public function indexAction()
     {
-        return $this->redirect($this->generateUrl("todolist_taskslist"));
+        return $this->redirect($this->generateUrl('todolist_taskslist'));
     }
 
     public function getTasksListAction()
@@ -34,9 +34,29 @@ class TasksListController extends Controller implements TasksListInterface
             $manager->persist($taskList);
             $manager->flush();
 
-            return $this->redirect($this->generateUrl("todolist_taskslist"));
+            return $this->redirect($this->generateUrl('todolist_taskslist'));
         }
-        $content = $this->get('templating')->render('ToDoListBundle:TasksList:newTaskListForm.html.twig', ["form" => $form->createView()]);
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:newTaskListForm.html.twig', ['form' => $form->createView()]);
+
+        return new Response($content);
+    }
+
+    public function updateTaskListAction($idList, Request $request)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $taskList = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
+        if (empty($taskList)) {
+            throw $this->createNotFoundException('Tasklist ' . $idList . ' doesn\'t exist');
+        }
+        $form = $this->createForm(new TasksListType(), $taskList);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirect($this->generateUrl('todolist_taskslist'));
+        }
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:newTaskListForm.html.twig', ['form' => $form->createView()]);
 
         return new Response($content);
     }
@@ -45,11 +65,12 @@ class TasksListController extends Controller implements TasksListInterface
     {
         $manager = $this->getDoctrine()->getManager();
         $taskList = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
-        if (!empty($taskList)) {
-            $manager->remove($taskList);
-            $manager->flush();
+        if (empty($taskList)) {
+            throw $this->createNotFoundException('Tasklist ' . $idList . ' doesn\'t exist');
         }
+        $manager->remove($taskList);
+        $manager->flush();
 
-        return $this->redirect($this->generateUrl("todolist_taskslist"));
+        return $this->redirect($this->generateUrl('todolist_taskslist'));
     }
 }
