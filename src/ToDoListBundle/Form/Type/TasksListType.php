@@ -24,6 +24,6 @@ class TasksListType extends AbstractType
 
     public function getName()
     {
-            return 'taskLists';
+            return 'tasksList';
     }
 }

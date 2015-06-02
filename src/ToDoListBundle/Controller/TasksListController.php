@@ -36,7 +36,20 @@ class TasksListController extends Controller implements TasksListInterface
 
             return $this->redirect($this->generateUrl("todolist_taskslist"));
         }
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:newTaskListForm.html.twig', ["form" => $form->createView()]);
 
-        return $this->render('ToDoListBundle:TasksList:newTaskListForm.html.twig', ["form" => $form->createView()]);
+        return new Response($content);
+    }
+
+    public function deleteTaskListAction($idList)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $taskList = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
+        if (!empty($taskList)) {
+            $manager->remove($taskList);
+            $manager->flush();
+        }
+
+        return $this->redirect($this->generateUrl("todolist_taskslist"));
     }
 }
