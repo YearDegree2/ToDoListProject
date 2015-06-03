@@ -5,3 +5,8 @@ ToDoListBundle\Entity\Taskslist:
     deadline:
       - NotBlank: ~
       - DateTime: ~
+
+ToDoListBundle\Entity\Task:
+  properties:
+    name:
+      - NotBlank: ~

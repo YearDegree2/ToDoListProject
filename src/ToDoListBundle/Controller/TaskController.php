@@ -38,4 +38,24 @@ class TaskController extends Controller implements TaskInterface
 
         return new Response($content);
     }
+
+    public function updateTaskAction(Request $request, $idList, $idTask)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $task = $manager->getRepository('ToDoListBundle:Task')->find($idTask);
+        if (empty($task)) {
+            throw $this->createNotFoundException('La tâche ' . $idTask . ' n\'existe pas');
+        }
+        $form = $this->createForm(new TaskType(), $task);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirect($this->generateUrl('todolist_tasks', ['idList' => $idList]));
+        }
+        $content = $this->get('templating')->render('ToDoListBundle:Task:addTaskForm.html.twig', ['form' => $form->createView()]);
+
+        return new Response($content);
+    }
 }

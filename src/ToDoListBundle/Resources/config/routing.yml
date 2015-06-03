@@ -28,8 +28,15 @@ todolist_tasks:
     requirements:
         idList: \d+
 
-todolist_add_tasks:
+todolist_add_task:
     pattern:  /taskslist/{idList}/tasks/add
     defaults: { _controller: ToDoListBundle:Task:addTask }
     requirements:
         idTaskList: \d+
+
+todolist_update_task:
+    pattern: /taskslist/{idList}/tasks/update/{idTask}
+    defaults: { _controller: ToDoListBundle:Task:updateTask }
+    requirements:
+        idList: \d+
+        idTask: \d+

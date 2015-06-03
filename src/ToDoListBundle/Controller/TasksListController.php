@@ -46,7 +46,7 @@ class TasksListController extends Controller implements TasksListInterface
         $manager = $this->getDoctrine()->getManager();
         $taskList = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
         if (empty($taskList)) {
-            throw $this->createNotFoundException('Tasklist ' . $idList . ' doesn\'t exist');
+            throw $this->createNotFoundException('La liste  ' . $idList . ' n\'existe pas');
         }
         $form = $this->createForm(new TasksListType(), $taskList);
         $form->handleRequest($request);
