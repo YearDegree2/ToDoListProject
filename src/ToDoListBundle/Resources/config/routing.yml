@@ -6,7 +6,7 @@ todolist_taskslist:
     path:     /taskslist
     defaults: { _controller: ToDoListBundle:TasksList:getTasksList }
 
-todolist_new_tasklist:
+todolist_add_tasklist:
     pattern:  /taskslist/add
     defaults: { _controller: ToDoListBundle:TasksList:addTaskList }
 
@@ -23,7 +23,13 @@ todolist_delete_tasklist:
         idList: \d+
 
 todolist_tasks:
-    pattern:  /taskslist/{idList}
+    pattern:  /taskslist/{idList}/tasks
     defaults: { _controller: ToDoListBundle:Task:getTasks }
     requirements:
         idList: \d+
+
+todolist_add_tasks:
+    pattern:  /taskslist/{idList}/tasks/add
+    defaults: { _controller: ToDoListBundle:Task:addTask }
+    requirements:
+        idTaskList: \d+

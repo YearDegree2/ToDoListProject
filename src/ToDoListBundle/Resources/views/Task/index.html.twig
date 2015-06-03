@@ -3,5 +3,6 @@
     {% for task in tasks %}
         <li>{{ task.name }}</li>
     {% endfor %}
+    <a href="{{ path("todolist_add_tasks", { "idList" : idList}) }}">Ajouter une tâche</a>
     <a href="{{ path("todolist_taskslist") }}">Retourner à la liste des tâches</a>
 </ul>
