@@ -12,9 +12,10 @@ class TaskController extends Controller implements TaskInterface
 {
     public function getTasksAction($idList)
     {
-        $repository = $this->getDoctrine()->getRepository('ToDoListBundle:Task');
-        $tasks = $repository->findByTaskslist($idList);
-        $content = $this->get('templating')->render('ToDoListBundle:Task:index.html.twig', ['tasks' => $tasks, 'idList' => $idList]);
+        $manager = $this->getDoctrine()->getManager();
+        $tasks = $manager->getRepository('ToDoListBundle:Task')->findByTaskslist($idList);
+        $taskList = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
+        $content = $this->get('templating')->render('ToDoListBundle:Task:index.html.twig', ['tasks' => $tasks, 'taskList' => $taskList]);
 
         return new Response($content);
     }
@@ -26,9 +27,9 @@ class TaskController extends Controller implements TaskInterface
         $form->handleRequest($request);
         if ($form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
-            $tasklist = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
+            $taskList = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
             $task->setStatus(0);
-            $task->setTaskslist($tasklist);
+            $task->setTaskslist($taskList);
             $manager->persist($task);
             $manager->flush();
 
@@ -39,7 +40,7 @@ class TaskController extends Controller implements TaskInterface
         return new Response($content);
     }
 
-    public function updateTaskAction(Request $request, $idList, $idTask)
+    public function editTaskAction(Request $request, $idList, $idTask)
     {
         $manager = $this->getDoctrine()->getManager();
         $task = $manager->getRepository('ToDoListBundle:Task')->find($idTask);
@@ -57,19 +58,6 @@ class TaskController extends Controller implements TaskInterface
         $content = $this->get('templating')->render('ToDoListBundle:Task:addTaskForm.html.twig', ['form' => $form->createView()]);
 
         return new Response($content);
-    }
-
-    public function deleteTaskAction($idList, $idTask)
-    {
-        $manager = $this->getDoctrine()->getManager();
-        $task = $manager->getRepository('ToDoListBundle:Task')->find($idTask);
-        if (empty($task)) {
-            throw $this->createNotFoundException('La tâche ' . $idTask . ' n\'existe pas');
-        }
-        $manager->remove($task);
-        $manager->flush();
-
-        return $this->redirect($this->generateUrl('todolist_tasks', ['idList' => $idList]));
     }
 
     public function validateTaskAction($idList, $idTask)
@@ -85,6 +73,21 @@ class TaskController extends Controller implements TaskInterface
         else {
             $task->setStatus(0);
         }
+        $manager->flush();
+
+        return $this->redirect($this->generateUrl('todolist_tasks', ['idList' => $idList]));
+    }
+
+    public function deleteTaskAction(Request $request)
+    {
+        $idList = $request->request->get('idList');
+        $idTask = $request->request->get('idTask');
+        $manager = $this->getDoctrine()->getManager();
+        $task = $manager->getRepository('ToDoListBundle:Task')->find($idTask);
+        if (empty($task)) {
+            throw $this->createNotFoundException('La tâche ' . $idTask . ' n\'existe pas');
+        }
+        $manager->remove($task);
         $manager->flush();
 
         return $this->redirect($this->generateUrl('todolist_tasks', ['idList' => $idList]));

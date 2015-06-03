@@ -12,7 +12,7 @@ interface TasksListInterface
 
     public function addTaskListAction(Request $request);
 
-    public function updateTaskListAction($idList, Request $request);
+    public function editTaskListAction(Request $request, $idList);
 
-    public function deleteTaskListAction($idList);
+    public function deleteTaskListAction(Request $request);
 }

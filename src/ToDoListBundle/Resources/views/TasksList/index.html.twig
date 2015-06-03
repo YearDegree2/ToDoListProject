@@ -3,9 +3,12 @@
     {% for tasklist in taskslist %}
         <li>
             {{ tasklist.id }} : {{ tasklist.name }}
-            <a href="{{ path("todolist_update_tasklist", { "idList" : tasklist.id}) }}">Modifier</a>
+            <a href="{{ path("todolist_edit_tasklist", { "idList" : tasklist.id}) }}">Modifier</a>
             <a href="{{ path("todolist_tasks", { "idList" : tasklist.id}) }}">Lister toutes les tâches</a>
-            <a href="{{ path("todolist_delete_tasklist", { "idList" : tasklist.id}) }}">Supprimer</a>
+            <form name="form" action="{{ path("todolist_delete_tasklist") }}" method="post">
+                <input type="hidden" name="idList" value="{{ tasklist.id }}"/>
+                <input type="submit" value="Supprimer" name="delete"/>
+            </form>
         </li>
     {% endfor %}
     <a href="{{ path("todolist_add_tasklist") }}">Nouvelle liste</a>

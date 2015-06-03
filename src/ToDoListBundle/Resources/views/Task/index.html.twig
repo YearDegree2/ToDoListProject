@@ -1,11 +1,15 @@
-<h1>Tâches de la liste {{ idList }}</h1>
+<h1>Tâches de la liste {{ taskList.name }}</h1>
 <ul>
     {% for task in tasks %}
         <li>{{ task.id }} : {{ task.name }} : {{ task.status }}</li>
-        <a href="{{ path("todolist_update_task", { "idList" : idList, "idTask" : task.id}) }}">Modifier</a>
-        <a href="{{ path("todolist_validate_task", { "idList" : idList, "idTask" : task.id}) }}">Valider</a>
-        <a href="{{ path("todolist_delete_task", { "idList" : idList, "idTask" : task.id}) }}">Supprimer</a>
+        <a href="{{ path("todolist_edit_task", { "idList" : taskList.id, "idTask" : task.id}) }}">Modifier</a>
+        <a href="{{ path("todolist_validate_task", { "idList" : taskList.id, "idTask" : task.id}) }}">Valider</a>
+        <form name="form" action="{{ path("todolist_delete_task") }}" method="post">
+            <input type="hidden" name="idList" value="{{ taskList.id }}"/>
+            <input type="hidden" name="idTask" value="{{ task.id }}"/>
+            <input type="submit" value="Supprimer" name="delete"/>
+        </form>
     {% endfor %}
-    <a href="{{ path("todolist_add_task", { "idList" : idList}) }}">Ajouter une tâche</a>
+    <a href="{{ path("todolist_add_task", { "idList" : taskList.id}) }}">Ajouter une tâche</a>
     <a href="{{ path("todolist_taskslist") }}">Retourner à la liste des tâches</a>
 </ul>

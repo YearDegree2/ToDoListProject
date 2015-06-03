@@ -36,12 +36,12 @@ class TasksListController extends Controller implements TasksListInterface
 
             return $this->redirect($this->generateUrl('todolist_taskslist'));
         }
-        $content = $this->get('templating')->render('ToDoListBundle:TasksList:newTaskListForm.html.twig', ['form' => $form->createView()]);
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:addTaskListForm.html.twig', ['form' => $form->createView()]);
 
         return new Response($content);
     }
 
-    public function updateTaskListAction($idList, Request $request)
+    public function editTaskListAction(Request $request, $idList)
     {
         $manager = $this->getDoctrine()->getManager();
         $taskList = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
@@ -56,13 +56,14 @@ class TasksListController extends Controller implements TasksListInterface
 
             return $this->redirect($this->generateUrl('todolist_taskslist'));
         }
-        $content = $this->get('templating')->render('ToDoListBundle:TasksList:newTaskListForm.html.twig', ['form' => $form->createView()]);
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:addTaskListForm.html.twig', ['form' => $form->createView()]);
 
         return new Response($content);
     }
 
-    public function deleteTaskListAction($idList)
+    public function deleteTaskListAction(Request $request)
     {
+        $idList = $request->request->get('idList');
         $manager = $this->getDoctrine()->getManager();
         $taskList = $manager->getRepository('ToDoListBundle:Taskslist')->find($idList);
         if (empty($taskList)) {
