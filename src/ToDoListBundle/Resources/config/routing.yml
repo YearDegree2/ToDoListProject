@@ -40,3 +40,17 @@ todolist_update_task:
     requirements:
         idList: \d+
         idTask: \d+
+
+todolist_delete_task:
+    pattern: /taskslist/{idList}/tasks/delete/{idTask}
+    defaults: { _controller: ToDoListBundle:Task:deleteTask }
+    requirements:
+        idList: \d+
+        idTask: \d+
+
+todolist_validate_task:
+    pattern: /taskslist/{idList}/tasks/validate/{idTask}
+    defaults: { _controller: ToDoListBundle:Task:validateTask }
+    requirements:
+        idList: \d+
+        idTask: \d+

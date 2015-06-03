@@ -58,4 +58,35 @@ class TaskController extends Controller implements TaskInterface
 
         return new Response($content);
     }
+
+    public function deleteTaskAction($idList, $idTask)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $task = $manager->getRepository('ToDoListBundle:Task')->find($idTask);
+        if (empty($task)) {
+            throw $this->createNotFoundException('La tâche ' . $idTask . ' n\'existe pas');
+        }
+        $manager->remove($task);
+        $manager->flush();
+
+        return $this->redirect($this->generateUrl('todolist_tasks', ['idList' => $idList]));
+    }
+
+    public function validateTaskAction($idList, $idTask)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $task = $manager->getRepository('ToDoListBundle:Task')->find($idTask);
+        if (empty($task)) {
+            throw $this->createNotFoundException('La tâche ' . $idTask . ' n\'existe pas');
+        }
+        if ($task->getStatus() === 0) {
+            $task->setStatus(1);
+        }
+        else {
+            $task->setStatus(0);
+        }
+        $manager->flush();
+
+        return $this->redirect($this->generateUrl('todolist_tasks', ['idList' => $idList]));
+    }
 }
