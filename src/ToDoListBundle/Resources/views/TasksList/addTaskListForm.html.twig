@@ -1,0 +1,15 @@
+{% extends 'ToDoListBundle:Default:taskslist.base.html.twig' %}
+
+{% block content %}
+    <label for="message"><h3><span class="label label-default">Create your TaskList</span></h3></label><br/>
+
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    <br/>
+    {{ form_row(form.deadline) }}
+    <br/>
+    {{ form_row(form.Create) }}
+    <br/>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

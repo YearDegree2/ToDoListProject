@@ -1,3 +1,51 @@
-to_do_list_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: ToDoListBundle:Default:index }
+todolist_homepage:
+    path:     /
+    defaults: { _controller: ToDoListBundle:TasksList:index }
+
+todolist_taskslist:
+    path:     /taskslist
+    defaults: { _controller: ToDoListBundle:TasksList:getTasksList }
+
+todolist_add_tasklist:
+    pattern:  /taskslist/add
+    defaults: { _controller: ToDoListBundle:TasksList:addTaskList }
+
+todolist_edit_tasklist:
+    pattern: /taskslist/edit/{idList}
+    defaults: { _controller: ToDoListBundle:TasksList:editTaskList }
+    requirements:
+        idList: \d+
+
+todolist_delete_tasklist:
+    pattern: /taskslist/delete
+    defaults: { _controller: ToDoListBundle:TasksList:deleteTaskList }
+
+todolist_tasks:
+    pattern:  /taskslist/{idList}/tasks
+    defaults: { _controller: ToDoListBundle:Task:getTasks }
+    requirements:
+        idList: \d+
+
+todolist_add_task:
+    pattern:  /taskslist/{idList}/tasks/add
+    defaults: { _controller: ToDoListBundle:Task:addTask }
+    requirements:
+        idTaskList: \d+
+
+todolist_edit_task:
+    pattern: /taskslist/{idList}/tasks/edit/{idTask}
+    defaults: { _controller: ToDoListBundle:Task:editTask }
+    requirements:
+        idList: \d+
+        idTask: \d+
+
+todolist_validate_task:
+    pattern: /taskslist/{idList}/tasks/validate/{idTask}
+    defaults: { _controller: ToDoListBundle:Task:validateTask }
+    requirements:
+        idList: \d+
+        idTask: \d+
+
+todolist_delete_task:
+    pattern: /taskslist/tasks/delete
+    defaults: { _controller: ToDoListBundle:Task:deleteTask }

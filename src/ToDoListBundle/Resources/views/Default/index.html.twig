@@ -1,5 +1,32 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        Hello {{ name }}!
-    </body>
+<head>
+    {% block head %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        {% stylesheets filter='cssrewrite' '@ToDoListBundle/Resources/public/css/*' output='css/main.css'%}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+
+        <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+</head>
+<body>
+<header class="page-header navbar navbar-static-top">
+    {% block header %}{% endblock %}
+</header>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        {% block menu %}
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ path("todolist_taskslist") }}">Index</a>
+            </div>
+        {% endblock %}
+    </div>
+</nav>
+<div id="body" class="container">
+    {% block content %}{% endblock %}
+</div>
+</body>
 </html>
