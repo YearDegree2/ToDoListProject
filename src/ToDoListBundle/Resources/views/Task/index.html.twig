@@ -1,15 +1,38 @@
-<h1>Tâches de la liste {{ taskList.name }}</h1>
-<ul>
-    {% for task in tasks %}
-        <li>{{ task.id }} : {{ task.name }} : {{ task.status }}</li>
-        <a href="{{ path("todolist_edit_task", { "idList" : taskList.id, "idTask" : task.id}) }}">Modifier</a>
-        <a href="{{ path("todolist_validate_task", { "idList" : taskList.id, "idTask" : task.id}) }}">Valider</a>
-        <form name="form" action="{{ path("todolist_delete_task") }}" method="post">
-            <input type="hidden" name="idList" value="{{ taskList.id }}"/>
-            <input type="hidden" name="idTask" value="{{ task.id }}"/>
-            <input type="submit" value="Supprimer" name="delete"/>
-        </form>
-    {% endfor %}
-    <a href="{{ path("todolist_add_task", { "idList" : taskList.id}) }}">Ajouter une tâche</a>
-    <a href="{{ path("todolist_taskslist") }}">Retourner à la liste des tâches</a>
-</ul>
+{% extends 'ToDoListBundle:Default:task.base.html.twig' %}
+
+{% block content %}
+    <label for="message"><h3><span class="label label-default">Manage your Tasks</span></h3></label><br/>
+
+    {% if tasks|length > 0 %}
+        {% for task in tasks %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ task.name }} :
+                    {% if task.status == 1 %}
+                        Done
+                    {%  else %}
+                        To Do
+                    {%  endif %}
+                </div>
+                <div class="panel-content">
+                    <div class="panel-body">
+                        <a class="btn btn-default" href="{{ path("todolist_edit_task", { "idList" : taskList.id, "idTask" : task.id}) }}">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <a class="btn btn-default" href="{{ path("todolist_validate_task", { "idList" : taskList.id, "idTask" : task.id}) }}">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </a>
+                        <form name="form" class="formDelete" action="{{ path("todolist_delete_task") }}" method="post">
+                            <input type="hidden" name="idList" value="{{ taskList.id }}"/>
+                            <input type="hidden" name="idTask" value="{{ task.id }}"/>
+                            <button type="submit" value="Delete" name="delete" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

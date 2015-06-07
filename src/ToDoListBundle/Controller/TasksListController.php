@@ -48,7 +48,7 @@ class TasksListController extends Controller implements TasksListInterface
         if (empty($taskList)) {
             throw $this->createNotFoundException('La liste  ' . $idList . ' n\'existe pas');
         }
-        $form = $this->createForm(new TasksListType(), $taskList);
+        $form = $this->createForm(new TasksListType(true), $taskList);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
@@ -56,7 +56,7 @@ class TasksListController extends Controller implements TasksListInterface
 
             return $this->redirect($this->generateUrl('todolist_taskslist'));
         }
-        $content = $this->get('templating')->render('ToDoListBundle:TasksList:addTaskListForm.html.twig', ['form' => $form->createView()]);
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:editTaskListForm.html.twig', ['form' => $form->createView()]);
 
         return new Response($content);
     }
