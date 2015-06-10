@@ -49,3 +49,19 @@ todolist_validate_task:
 todolist_delete_task:
     pattern: /taskslist/tasks/delete
     defaults: { _controller: ToDoListBundle:Task:deleteTask }
+
+todolist_oauth2_callback:
+    pattern: /oauth2/callback
+    defaults: { _controller: ToDoListBundle:Google:callback }
+
+todolist_oauth2_exit:
+    pattern: /oauth2/exit
+    defaults: { _controller: ToDoListBundle:Google:exit }
+
+test_happyrrr:
+    pattern: /test
+    defaults: { _controller: ToDoListBundle:TasksListGoogle:getGoogleServiceTasks }
+
+test_happyr:
+    pattern: /testHappyr
+    defaults: { _controller: ToDoListBundle:TasksList:testHappyBundle }
