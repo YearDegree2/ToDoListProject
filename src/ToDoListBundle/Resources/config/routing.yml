@@ -77,3 +77,33 @@ todolist_google_edit_tasklist:
 todolist_google_delete_tasklist:
     pattern: /google/taskslist/delete
     defaults: { _controller: ToDoListBundle:TasksListGoogle:deleteTaskList }
+
+todolist_google_tasks:
+    pattern:  /google/taskslist/{idList}/tasks
+    defaults: { _controller: ToDoListBundle:TaskGoogle:getTasks }
+    requirements:
+        idList: \d+
+
+todolist_google_add_task:
+    pattern:  /google/taskslist/{idList}/tasks/add
+    defaults: { _controller: ToDoListBundle:TaskGoogle:addTask }
+    requirements:
+        idTaskList: \d+
+
+todolist_google_edit_task:
+    pattern: /google/taskslist/{idList}/tasks/edit/{idTask}
+    defaults: { _controller: ToDoListBundle:TaskGoogle:editTask }
+    requirements:
+        idList: \d+
+        idTask: \d+
+
+todolist_google_validate_task:
+    pattern: /google/taskslist/{idList}/tasks/validate/{idTask}
+    defaults: { _controller: ToDoListBundle:TaskGoogle:validateTask }
+    requirements:
+        idList: \d+
+        idTask: \d+
+
+todolist_google_delete_task:
+    pattern: /google/taskslist/tasks/delete
+    defaults: { _controller: ToDoListBundle:TaskGoogle:deleteTask }

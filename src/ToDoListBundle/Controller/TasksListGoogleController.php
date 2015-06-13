@@ -30,8 +30,7 @@ class TasksListGoogleController extends Controller
     public function getTasksListAction()
     {
         $service = $this->getGoogleServiceTasks();
-
-        return new Response("dfgdfg");
+        return $this->render('ToDoListBundle:TasksList:indexGoogle.html.twig');
     }
 
     public function addTaskListAction(Request $request)
