@@ -7,16 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ToDoListBundle\Form\Type\TasksListType;
 use ToDoListBundle\Entity\Taskslist;
-use HappyR\Google\ApiBundle\Services;
-use HappyR\Google\ApiBundle\DependencyInjection;
 
 class TasksListController extends Controller implements TasksListInterface
 {
-    public function indexAction()
-    {
-        return $this->redirect($this->generateUrl('todolist_taskslist'));
-    }
-
     public function getTasksListAction()
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('ToDoListBundle:Taskslist');
@@ -75,40 +68,5 @@ class TasksListController extends Controller implements TasksListInterface
         $manager->flush();
 
         return $this->redirect($this->generateUrl('todolist_taskslist'));
-    }
-
-    public function testHappyBundleAction()
-    {
-        $client = $this->container->get("happyr.google.api.client");
-
-        $googleClient = $client->getGoogleClient();
-        $googleClient->setScopes(array(
-                'https://www.googleapis.com/auth/plus.me',
-                'https://www.googleapis.com/auth/userinfo.email',
-                'https://www.googleapis.com/auth/userinfo.profile',
-            ));
-
-        $service = new \Google_Service_Tasks($googleClient);
-        if (isset($_GET['logout'])) { // logout: destroy token
-            unset($_SESSION['token']);
-            die('Logged out.');
-        }
-
-        if (isset($_GET['code'])) { // we received the positive auth callback, get the token and store it in session
-            $googleClient->authenticate($_GET['code']);
-            $_SESSION['token'] = $client->getAccessToken();
-        }
-
-        if (isset($_SESSION['token'])) { // extract token from session and configure client
-            $token = $_SESSION['token'];
-            $googleClient->setAccessToken($token);
-        }
-
-        if (!$googleClient->getAccessToken()) { // auth call to google
-            $authUrl = $googleClient->createAuthUrl();
-            header("Location: ".$authUrl);
-            die;
-        }
-        return new Response("jean");
     }
 }

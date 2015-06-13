@@ -4,8 +4,6 @@ namespace ToDoListBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
-use HappyR\Google\ApiBundle\Services\GoogleClient;
-use HappyR\Google\ApiBundle\DependencyInjection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,14 +11,15 @@ class GoogleController extends Controller
 {
     public function callbackAction(Request $request)
     {
-        $code = $request->query->get("code");
-        $client = $this->container->get("happyr.google.api.client");
-        $googleClient = $client->getGoogleClient();
-        $googleClient->setScopes([
-            'https://www.googleapis.com/auth/tasks'
-        ]);
-        if(!empty($code)){
-            $googleClient->authenticate($code);
+        if ($request->query->get('error')) {
+            $content = $this->get('templating')->render('ToDoListBundle:Google:error.html.twig');
+
+            return new Response($content);
+        }
+
+        if ($request->query->get('code')) {
+            $googleClient = $this->get('happyr.google.api.client');
+            $googleClient->authenticate($request->query->get('code'));
             $accessToken = $googleClient->getAccessToken();
             $this->securityContext = $this->get("security.context");
             $token = $this->securityContext->getToken();
@@ -32,22 +31,15 @@ class GoogleController extends Controller
             );
             $this->securityContext->setToken($token);
         }
-        if(!empty($this->securityContext)) {
-            $token = $this->securityContext->getToken();
-            $googleClient->setAccessToken($token->getUser());
-        }
-        if(!$googleClient->getAccessToken()) {
-            $authUrl = $googleClient->createAuthUrl();
-            header("Location: ".$authUrl);
-            die;
-        }
 
-        return new Response("Hello");
+        return $this->redirect($this->generateUrl('todolist_google_taskslist'));
     }
 
     public function exitAction()
     {
         $this->get('security.context')->setToken(null);
-        return $this->redirect($this->generateUrl("todolist_homepage"));
+        $this->get('session')->invalidate();
+
+        return $this->redirect($this->generateUrl('todolist_homepage'));
     }
 }

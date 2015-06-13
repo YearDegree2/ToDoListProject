@@ -2,18 +2,18 @@ security:
     providers:
         in_memory:
             memory: ~
- 
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
- 
+
         default:
             pattern:  ^/
             simple_preauth:
                 authenticator: todolist_authenticator
             access_denied_handler: todolist_access_denied_handler
- 
+
     access_control:
         - { path: ^/oauth2/callback$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_HAS_TOKEN }
+        - { path: ^/google, roles: ROLE_HAS_TOKEN }
