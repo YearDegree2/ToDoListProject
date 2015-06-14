@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Nicolas
- * Date: 10/06/2015
- * Time: 19:59
- */
 
 namespace ToDoListBundle\Controller;
 
@@ -12,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ToDoListBundle\Form\Type\TasksListType;
-
-//use HappyR\Google\ApiBundle\Services\GoogleClient;
 
 class TasksListGoogleController extends Controller
 {
@@ -32,8 +24,9 @@ class TasksListGoogleController extends Controller
     {
         $service = $this->getGoogleServiceTasks();
         $tasksList = $service->tasklists->listTasklists();
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:indexGoogle.html.twig', ['taskslist' => $tasksList]);
 
-        return $this->render('ToDoListBundle:TasksList:indexGoogle.html.twig', ['taskslist' => $tasksList]);
+        return new Response($content);
     }
 
     public function addTaskListAction(Request $request)

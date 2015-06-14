@@ -1,0 +1,13 @@
+{% extends 'ToDoListBundle:Google:taskGoogle.base.html.twig' %}
+
+{% block content %}
+    <label for="message"><h3><span class="label label-default">Create your Task</span></h3></label><br/>
+
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    <br/>
+    {{ form_row(form.Create) }}
+    <br/>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

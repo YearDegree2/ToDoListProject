@@ -9,23 +9,24 @@
                 <div class="panel-heading">
                     {{ tasklist.title }}
                 </div>
-            </div>
-            <div class="panel panel-default panel-tweet-more">
-                <div class="panel-body">
-                    <a class="btn btn-default" href="{{ path("todolist_google_edit_tasklist", { "idList" : tasklist.id}) }}">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
-                    <a class="btn btn-default" href="{{ path("todolist_google_tasks", { "idList" : tasklist.id}) }}">
-                        <span class="glyphicon glyphicon-zoom-in"></span>
-                    </a>
-                    <form name="form" class="formDelete" action="{{ path("todolist_google_delete_tasklist") }}" method="post">
-                        <input type="hidden" name="idList" value="{{ tasklist.id }}"/>
-                        <button type="submit" value="Delete" name="delete" class="btn btn-default">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                    </form>
+                <div class="panel-content">
+                    <div class="panel-body">
+                        <a class="btn btn-default" href="{{ path("todolist_google_edit_tasklist", { "idList" : tasklist.id}) }}">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <a class="btn btn-default" href="{{ path("todolist_google_tasks", { "idList" : tasklist.id}) }}">
+                            <span class="glyphicon glyphicon-zoom-in"></span>
+                        </a>
+                        <form name="form" class="formDelete" action="{{ path("todolist_google_delete_tasklist") }}" method="post">
+                            <input type="hidden" name="idList" value="{{ tasklist.id }}"/>
+                            <button type="submit" value="Delete" name="delete" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
+
             <br/>
         {% endfor %}
     {% endif %}
