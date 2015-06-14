@@ -11,6 +11,7 @@ namespace ToDoListBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use ToDoListBundle\Form\Type\TasksListType;
 
 //use HappyR\Google\ApiBundle\Services\GoogleClient;
 
@@ -30,21 +31,50 @@ class TasksListGoogleController extends Controller
     public function getTasksListAction()
     {
         $service = $this->getGoogleServiceTasks();
-        return $this->render('ToDoListBundle:TasksList:indexGoogle.html.twig');
+        $tasksList = $service->tasklists->listTasklists();
+
+        return $this->render('ToDoListBundle:TasksList:indexGoogle.html.twig', ['taskslist' => $tasksList]);
     }
 
     public function addTaskListAction(Request $request)
     {
+        $service = $this->getGoogleServiceTasks();
+        $taskList = new \Google_Service_Tasks_TaskList();
+        $form = $this->createForm(new TasksListType(false, '\Google_Service_Tasks_TaskList', true));
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $taskList->setTitle($form->getData()['title']);
+            $service->tasklists->insert($taskList);
 
+            return $this->redirect($this->generateUrl("todolist_google_taskslist"));
+        }
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:addTaskListGoogleForm.html.twig', ['form' => $form->createView()]);
+
+        return new Response($content);
     }
 
     public function editTaskListAction(Request $request, $idList)
     {
+        $service = $this->getGoogleServiceTasks();
+        $taskList = $service->tasklists->get($idList);
+        $form = $this->createForm(new TasksListType(true, '\Google_Service_Tasks_TaskList', true), $taskList);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $service->tasklists->update($taskList->getId(), $taskList);
 
+            return $this->redirect($this->generateUrl("todolist_google_taskslist"));
+        }
+        $content = $this->get('templating')->render('ToDoListBundle:TasksList:editTaskListGoogleForm.html.twig', ['form' => $form->createView()]);
+
+        return new Response($content);
     }
 
     public function deleteTaskListAction(Request $request)
     {
+        $service = $this->getGoogleServiceTasks();
+        $idList = $request->request->get('idList');
+        $service->tasklists->delete($idList);
 
+        return $this->redirect($this->generateUrl("todolist_google_taskslist"));
     }
 }

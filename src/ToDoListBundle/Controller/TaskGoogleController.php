@@ -4,7 +4,6 @@ namespace ToDoListBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class TaskGoogleController extends Controller implements TaskInterface
 {
