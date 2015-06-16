@@ -20,7 +20,8 @@
     <div class="container">
         {% block menu %}
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path("todolist_homepage") }}">Home</a>
+                <!-- Suppress the token and redirect to home -->
+                <a class="navbar-brand" href="{{ path("todolist_oauth2_exit") }}">Home</a>
             </div>
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ path("todolist_google_taskslist") }}">Index</a>

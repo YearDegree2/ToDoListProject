@@ -37,8 +37,7 @@ class GoogleController extends Controller
 
     public function exitAction()
     {
-        $this->get('security.context')->setToken(null);
-        $this->get('session')->invalidate();
+        $this->get('security.context')->setToken();
 
         return $this->redirect($this->generateUrl('todolist_homepage'));
     }
