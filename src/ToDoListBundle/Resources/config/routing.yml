@@ -1,6 +1,7 @@
 todolist_homepage:
     path:     /
-    defaults: { _controller: ToDoListBundle:TasksList:index }
+    defaults: { _controller: ToDoListBundle:ToDoList:index }
+
 
 todolist_taskslist:
     path:     /taskslist
@@ -49,3 +50,48 @@ todolist_validate_task:
 todolist_delete_task:
     pattern: /taskslist/tasks/delete
     defaults: { _controller: ToDoListBundle:Task:deleteTask }
+
+
+todolist_oauth2_callback:
+    pattern: /oauth2/callback
+    defaults: { _controller: ToDoListBundle:Google:callback }
+
+todolist_oauth2_exit:
+    pattern: /oauth2/exit
+    defaults: { _controller: ToDoListBundle:Google:exit }
+
+todolist_google_taskslist:
+    path:     /google/taskslist
+    defaults: { _controller: ToDoListBundle:TasksListGoogle:getTasksList }
+
+todolist_google_add_tasklist:
+    pattern:  /google/taskslist/add
+    defaults: { _controller: ToDoListBundle:TasksListGoogle:addTaskList }
+
+todolist_google_edit_tasklist:
+    pattern: /google/taskslist/edit/{idList}
+    defaults: { _controller: ToDoListBundle:TasksListGoogle:editTaskList }
+
+todolist_google_delete_tasklist:
+    pattern: /google/taskslist/delete
+    defaults: { _controller: ToDoListBundle:TasksListGoogle:deleteTaskList }
+
+todolist_google_tasks:
+    pattern:  /google/taskslist/{idList}/tasks
+    defaults: { _controller: ToDoListBundle:TaskGoogle:getTasks }
+
+todolist_google_add_task:
+    pattern:  /google/taskslist/{idList}/tasks/add
+    defaults: { _controller: ToDoListBundle:TaskGoogle:addTask }
+
+todolist_google_edit_task:
+    pattern: /google/taskslist/{idList}/tasks/edit/{idTask}
+    defaults: { _controller: ToDoListBundle:TaskGoogle:editTask }
+
+todolist_google_validate_task:
+    pattern: /google/taskslist/{idList}/tasks/validate/{idTask}
+    defaults: { _controller: ToDoListBundle:TaskGoogle:validateTask }
+
+todolist_google_delete_task:
+    pattern: /google/taskslist/tasks/delete
+    defaults: { _controller: ToDoListBundle:TaskGoogle:deleteTask }

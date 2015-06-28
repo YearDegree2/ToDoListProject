@@ -11,5 +11,5 @@ name VARCHAR(255) NOT NULL,
 status INT NOT NULL,
 taskslist_id INT NOT NULL,
 PRIMARY KEY(id),
-FOREIGN KEY (taskslist_id) REFERENCES TasksList(id)
+FOREIGN KEY (taskslist_id) REFERENCES TasksList(id) ON DELETE CASCADE
 )ENGINE = InnoDB CHARACTER SET utf8;

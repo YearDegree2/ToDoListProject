@@ -10,11 +10,6 @@ use ToDoListBundle\Entity\Taskslist;
 
 class TasksListController extends Controller implements TasksListInterface
 {
-    public function indexAction()
-    {
-        return $this->redirect($this->generateUrl('todolist_taskslist'));
-    }
-
     public function getTasksListAction()
     {
         $repository = $this->getDoctrine()->getManager()->getRepository('ToDoListBundle:Taskslist');

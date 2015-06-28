@@ -71,3 +71,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# Happyr GoogleAPIBundle Configuration
+happy_r_google_api:
+    application_name:       ToDoListBundle
+    oauth2_client_id:       219738066735-fi9fph9j350958ks2umg8vhj1tickml8.apps.googleusercontent.com
+    oauth2_client_secret:   z3RjYOcf31Ouo5PZE2o5MVaE
+    oauth2_redirect_uri:    http://localhost:8081/app_dev.php/oauth2/callback
+    developer_key:          219738066735-fi9fph9j350958ks2umg8vhj1tickml8@developer.gserviceaccount.com
+    site_name:              http://localhost:8081/app_dev.php

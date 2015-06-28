@@ -9,20 +9,31 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class TasksListType extends AbstractType
 {
     private $update;
+    private $dataClass;
+    private $google;
 
-    public function __construct($update = false)
+    public function __construct($update = false, $dataClass = 'ToDoListBundle\Entity\Taskslist', $google = false)
     {
         $this->update = $update;
+        $this->dataClass = $dataClass;
+        $this->google = $google;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("name", "text", [
-            "label" => "Name",
-            "attr" => ["placeholder" => "Name",
-            "class" => "form-control"]]);
-        $builder->add("deadline", "date", [
-            "label" => "Deadline"]);
+        if (!$this->google) {
+            $builder->add("name", "text", [
+                "label" => "Name",
+                "attr" => ["placeholder" => "Name",
+                "class" => "form-control"]]);
+            $builder->add("deadline", "date", [
+                "label" => "Deadline"]);
+        } else {
+            $builder->add("title", "text", [
+                "label" => "Name",
+                "attr" => ["placeholder" => "Name",
+                    "class" => "form-control"]]);
+        }
         if ($this->update) {
             $builder->add("Update", "submit", ["attr" => ["class" => "form-control"]]);
         } else {
@@ -33,7 +44,7 @@ class TasksListType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ToDoListBundle\Entity\TasksList'
+            "data_class" => $this->dataClass
         ));
     }
 

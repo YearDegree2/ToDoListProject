@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         {% stylesheets filter='cssrewrite' '@ToDoListBundle/Resources/public/css/*' output='css/main.css'%}
-            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
         {% endstylesheets %}
 
         <title>{% block title %}{% endblock %}</title>
@@ -20,10 +20,11 @@
     <div class="container">
         {% block menu %}
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path("todolist_homepage") }}">Home</a>
+                <!-- Suppress the token and redirect to home -->
+                <a class="navbar-brand" href="{{ path("todolist_oauth2_exit") }}">Home</a>
             </div>
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path("todolist_taskslist") }}">Index</a>
+                <a class="navbar-brand" href="{{ path("todolist_google_taskslist") }}">Index</a>
             </div>
         {% endblock %}
     </div>

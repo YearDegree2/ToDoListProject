@@ -1,4 +1,16 @@
+parameters:
+    todolist_google_client:         HappyR\Google\ApiBundle\Services\GoogleClient
+    todolist_access_denied_handler: ToDoListBundle\Security\Authorization\AccessDeniedHandler
+    todolist_authenticator:         ToDoListBundle\Security\Authentication\Authenticator
+
 services:
-#    to_do_list.example:
-#        class: ToDoListBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    todolist_google_client:
+        class:      %todolist_google_client%
+        arguments:  [%happy_r_google_api%]
+    todolist_access_denied_handler:
+        class:      %todolist_access_denied_handler%
+        arguments:  [@todolist_google_client, @router]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
+    todolist_authenticator:
+        class:      %todolist_authenticator%
